@@ -3,8 +3,10 @@ from bs4 import BeautifulSoup
 import requests
 import urllib
 
-client = discord.Client()
+#토큰
+Token = os.environ["Token"]
 
+client = discord.Client()
 
 @client.event
 async def on_ready():
@@ -62,4 +64,4 @@ async def on_message(message):
         covidembed.set_footer(text=datecr.string)
         await message.channel.send(embed=covidembed)
         
-client.run('ODEwMDc3MzMwNTYzMjY4NjY4.YCeZTg.Tx1uqPiJMOG9KHIHjOrTEAmLJig')
+client.run(Token)
