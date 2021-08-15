@@ -5,7 +5,7 @@ from discord_components import DiscordComponents, Button, ButtonStyle, Interacti
 bot = commands.Bot(command_prefix = "!")
 Token = os.environ["Token"]
 startup_extensions = ['cogs.Button_Covid']
-os.chdir('/Users/lsc58/Desktop/프로그래밍/파이썬/코로나봇/cogs')
+os.chdir('/cogs')
 
 if __name__ == "__main__":
     for extension in startup_extensions:
