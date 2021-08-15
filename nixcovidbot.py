@@ -20,5 +20,4 @@ async def on_ready():
     DiscordComponents(bot, change_discord_methods=True)
     print("Ready")
 
-
 bot.run(Token)
