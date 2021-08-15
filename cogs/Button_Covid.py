@@ -1,4 +1,4 @@
-import covid
+import Crawling_Covid
 import discord
 from discord.ext import commands
 from discord_components import DiscordComponents, Button, ButtonStyle, InteractionType, component
@@ -47,11 +47,11 @@ class Button_Covid(commands.Cog):
                 response = buttons.get(event.component.id)     
                 if response is None:
                     await event.channel.send(
-                        "Something went wrong. Please try it again."            # error
+                        "다시 시도해 주세요.\n문제가 계속 된다면 문의 바랍니다."            # error
                     )
                 if event.channel == ctx.channel:
                     await event.respond(    
-                        type=InteractionType.ChannelMessageWithSource,      # send the message
+                        type=InteractionType.ChannelMessageWithSource,
                         embed=response
                     )
 
