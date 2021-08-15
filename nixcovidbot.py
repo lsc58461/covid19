@@ -1,68 +1,24 @@
 import os
-import discord
-from bs4 import BeautifulSoup
-import requests
-import urllib
+from discord.ext import commands
+from discord_components import DiscordComponents, Button, ButtonStyle, InteractionType, component
 
-#토큰
+bot = commands.Bot(command_prefix = "!")
 Token = os.environ["Token"]
+startup_extensions = ['cogs.Button_Covid']
+os.chdir('/Users/lsc58/Desktop/프로그래밍/파이썬/코로나봇/cogs')
 
-client = discord.Client()
+if __name__ == "__main__":
+    for extension in startup_extensions:
+        try:
+            bot.load_extension(extension)
+        except Exception as e:
+            exc = '{} : {}'.format(type(e).__name__, e)
+            print('파일 로딩 실패 {}\n{}'.format(extension,exc))
 
-@client.event
+@bot.event
 async def on_ready():
-    print("봇이 성공적으로 실행되었습니다.")
-    game = discord.Game('코로나 현황')
-    await client.change_presence(status=discord.Status.online, activity=game)
+    DiscordComponents(bot, change_discord_methods=True)
+    print("Ready")
 
 
-@client.event
-async def on_message(message):
-    if message.content.startswith('!코로나'):
-        url = 'http://ncov.mohw.go.kr/bdBoardList_Real.do?brdId=1&brdGubun=11&ncvContSeq=&contSeq=&board_id=&gubun='
-        html = urllib.request.urlopen(url)
-        soup = BeautifulSoup(html, "html.parser")
-
-        datecr = soup.find('span', {'class': 't_date'}) #기준날짜
-        #print(f'기준일: {datecr.string}')
-
-        totalcovid = soup.select('dd.ca_value')[0].text #누적 확진자수
-        #print(f'누적 확진자: {totalcovid} 명')
-
-        todaytotalcovid = soup.select('p.inner_value')[0].text #당일 확진자수 소계
-        #print(f'확진자 소계: {todaytotalcovid} 명')
-
-        todaydomecovid = soup.select('p.inner_value')[1].text #당일 국내발생 확진자수
-        #print(f'국내발생: {todaydomecovid} 명')
-
-        todayforecovid = soup.select('p.inner_value')[2].text #당일 해외유입 확진자수
-        #print(f'해외유입: {todayforecovid} 명')
-
-        totalca = soup.select('dd.ca_value')[2].text #누적 격리해제
-        #print(f'누적 격리해제: {totalca} 명')
-
-        todayca = soup.select('span.txt_ntc')[0].text #당일 격리해제
-        #print(f'격리해제: {todayca} 명')
-
-        totalcaing = soup.select('dd.ca_value')[4].text #누적 격리중
-        #print(f'누적 격리중: {totalcaing}')
-
-        todaycaing = soup.select('span.txt_ntc')[1].text #당일 격리중
-        #print(f'격리중: {todaycaing} 명')
-
-        totaldead = soup.select('dd.ca_value')[6].text #누적 사망자
-        #print(f'누적 사망자: {totaldead} 명')
-
-        todaydead = soup.select('span.txt_ntc')[2].text #당일 사망자
-        #print(f'사망자: {todaydead} 명')
-
-        covidembed = discord.Embed(title='코로나19 국내 발생현황', description="", color=0xFF0F13, url='http://ncov.mohw.go.kr/')
-        covidembed.add_field(name='🦠 확진환자', value=f'{totalcovid}({todaytotalcovid}) 명'
-                                                f'\n\n국내발생: {todaydomecovid} 명\n해외유입: {todayforecovid} 명', inline=False)
-        covidembed.add_field(name='😷 격리중', value=f'{totalcaing}({todaycaing}) 명', inline=False)
-        covidembed.add_field(name='🆓 격리해제', value=f'{totalca}({todayca}) 명', inline=False)
-        covidembed.add_field(name='💀 사망자', value=f'{totaldead}({todaydead}) 명', inline=False)
-        covidembed.set_footer(text=datecr.string)
-        await message.channel.send(embed=covidembed)
-        
-client.run(Token)
+bot.run(Token)
