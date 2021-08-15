@@ -7,7 +7,7 @@ class Button_Covid(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="Covids")
+    @commands.command(name="Covid_버튼생성")
     async def Covid(self, ctx):
         one = Button(label="🦠 확진환자", style=ButtonStyle.blue, id="Embed1")
         two = Button(label="😷 격리중", style=ButtonStyle.blue, id="Embed2")
