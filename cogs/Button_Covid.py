@@ -62,10 +62,10 @@ class Button_Covid(commands.Cog):
         await ctx.send(
             embed = discord.Embed(title='코로나19 국내 발생현황',description="",color=0xFF0F13,url='http://ncov.mohw.go.kr/').set_footer(text="밑에 버튼을 눌러 알아보세요!"),
             components=[
-                [one],
-                [two],
-                [three],
-                [four]
+                [one,
+                two],
+                [three,
+                four]
             ]
         )
 
