@@ -1,4 +1,4 @@
-import Crawling_Covid
+import covid
 import discord
 from discord.ext import commands
 from discord_components import DiscordComponents, Button, ButtonStyle, InteractionType, component
@@ -14,7 +14,7 @@ class Button_Covid(commands.Cog):
         three = Button(label="😂 격리해제", style=ButtonStyle.blue, id="Embed3")
         four = Button(label="🩸 사망자", style=ButtonStyle.red, id="Embed4")
 
-        Embed1 = discord.Embed(title='코로나19 국내 발생현황',description="",color=0xFF0F13).add_field(name='🦠 확진환자',value=f'{covid.totalcovid}({covid.todaytotalcovid}) 명'f'\n\n국내발생: {covid.todaydomecovid} 명'f'\n해외유입: {covid.todayforecovid} 명',inline=False).set_footer(text=covid.datecr.string)
+        Embed1 = discord.Embed(title='코로나19 국내 발생현황',description="",color=0xFF0F13).add_field(name='🦠 확진환자',value=f'{covid.totalcovid}({covid.todaytotalcovid}) 명\n\n국내발생: {covid.todaydomecovid} 명\n해외유입: {covid.todayforecovid} 명',inline=False).set_footer(text=covid.datecr.string)
 
         Embed2 = discord.Embed(title='코로나19 국내 발생현황',description="",color=0xFF0F13,).add_field(name='😷 격리중',value=f'{covid.totalcaing}({covid.todaycaing}) 명',inline=False).set_footer(text=covid.datecr.string)
 
@@ -47,11 +47,11 @@ class Button_Covid(commands.Cog):
                 response = buttons.get(event.component.id)     
                 if response is None:
                     await event.channel.send(
-                        "다시 시도해 주세요.\n문제가 계속 된다면 문의 바랍니다."            # error
+                        "Something went wrong. Please try it again."            # error
                     )
                 if event.channel == ctx.channel:
                     await event.respond(    
-                        type=InteractionType.ChannelMessageWithSource,
+                        type=InteractionType.ChannelMessageWithSource,      # send the message
                         embed=response
                     )
 
