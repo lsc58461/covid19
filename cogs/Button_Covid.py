@@ -14,7 +14,7 @@ class Button_Covid(commands.Cog):
         three = Button(label="😂 격리해제", style=ButtonStyle.blue, id="Embed3")
         four = Button(label="🩸 사망자", style=ButtonStyle.red, id="Embed4")
 
-        Embed1 = discord.Embed(title='코로나19 국내 발생현황',description="",color=0xFF0F13).add_field(name='🦠 확진환자',value=f'{covid.totalcovid}({covid.todaytotalcovid}) 명\n\n국내발생: {covid.todaydomecovid} 명\n해외유입: {covid.todayforecovid} 명',inline=False).set_footer(text=covid.datecr.string)
+        Embed1 = discord.Embed(title='코로나19 국내 발생현황',description="",color=0xFF0F13).add_field(name='🦠 확진환자',value=f'{covid.totalcovid}({covid.todaytotalcovid}) 명'f'\n\n국내발생: {covid.todaydomecovid} 명'f'\n해외유입: {covid.todayforecovid} 명',inline=False).set_footer(text=covid.datecr.string)
 
         Embed2 = discord.Embed(title='코로나19 국내 발생현황',description="",color=0xFF0F13,).add_field(name='😷 격리중',value=f'{covid.totalcaing}({covid.todaycaing}) 명',inline=False).set_footer(text=covid.datecr.string)
 
