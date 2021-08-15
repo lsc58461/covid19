@@ -8,7 +8,7 @@ class Button_Covid(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         
-    @commands.command(name="!Covid_버튼생성")
+    @commands.command(name="Covid_버튼생성")
     async def Covid(self, ctx):
         url = 'http://ncov.mohw.go.kr/bdBoardList_Real.do?brdId=1&brdGubun=11&ncvContSeq=&contSeq=&board_id=&gubun='
         html = urllib.request.urlopen(url)
