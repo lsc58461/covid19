@@ -2,7 +2,7 @@ import os
 from discord.ext import commands
 from discord_components import DiscordComponents, Button, ButtonStyle, InteractionType, component
 
-bot = commands.Bot(command_prefix = "!")
+bot = commands.Bot(command_prefix = "C!")
 Token = os.environ["Token"]
 startup_extensions = ['cogs.Button_Covid']
 os.chdir('/app/cogs')
