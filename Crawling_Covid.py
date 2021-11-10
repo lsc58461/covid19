@@ -2,19 +2,20 @@ import datetime
 import urllib.request
 from bs4 import BeautifulSoup
 
-url = 'http://ncov.mohw.go.kr/bdBoardList_Real.do?brdId=1&brdGubun=11&ncvContSeq=&contSeq=&board_id=&gubun='
-
+url = 'http://ncov.mohw.go.kr/'
+url2 = 'http://ncov.mohw.go.kr/bdBoardList_Real.do?brdId=1&brdGubun=11&ncvContSeq=&contSeq=&board_id=&gubun='
 def time():
     try:
         now = datetime.datetime.now()
         return now
     except:
+        print('Time: Error')
         return 'Time Error'
 
 def datecr():
     try:
         Time = time()
-        html = urllib.request.urlopen(url)
+        html = urllib.request.urlopen(url2)
         soup = BeautifulSoup(html, "html.parser")
 
         datecr = soup.find('span', {'class': 't_date'}) #기준날짜
@@ -22,134 +23,104 @@ def datecr():
 
         return datecr
     except:
+        print(f'{Time})  기준일: Error')
         return "Datecr Error"
 
-def totalcovid():
+def Total_Infection():
     try:
         Time = time()
         html = urllib.request.urlopen(url)
         soup = BeautifulSoup(html, "html.parser")
 
-        totalcovid = soup.select('dd.ca_value')[0].text #누적 확진자수
-        print(f'{Time})  누적 확진자: {totalcovid} 명')
+        Total_Infection = soup.select('div.box')[3].text #누적 확진자 수
+        Total_Infection = Total_Infection.replace('\n', '')
+        Total_Infection = Total_Infection.replace(' ', '')
+        Total_Infection = Total_Infection.replace('(누적)확진', '')
+        Total_Infection = Total_Infection.replace('다운로드', '')
+        print(f'{Time})  누적 확진자: {Total_Infection} 명')
 
-        return totalcovid
+        return Total_Infection
     except:
+        print(f'{Time})  누적 확진자: Error')
         return "Error"
-
-def todaytotalcovid():
+    
+def Today_Infection():
     try:
         Time = time()
         html = urllib.request.urlopen(url)
         soup = BeautifulSoup(html, "html.parser")
 
-        todaytotalcovid = soup.select('p.inner_value')[0].text #당일 확진자수 소계
-        print(f'{Time})  확진자 소계: {todaytotalcovid} 명')
+        Today_Infection = soup.select('td')[3].text #당일 확진자수 소계
+        print(f'{Time})  당일 확진자: {Today_Infection} 명')
 
-        return todaytotalcovid
+        return Today_Infection
     except:
-        return "Error"
-        
-def todaydomecovid():
-    try:
-        Time = time()
-        html = urllib.request.urlopen(url)
-        soup = BeautifulSoup(html, "html.parser")
-
-        todaydomecovid = soup.select('p.inner_value')[1].text #당일 국내발생 확진자수
-        print(f'{Time})  국내발생: {todaydomecovid} 명')
-
-        return todaydomecovid
-    except:
+        print(f'{Time})  당일 확진자: Error')
         return "Error"
         
-def todayforecovid():
+def Vaccination_Status():
     try:
         Time = time()
         html = urllib.request.urlopen(url)
         soup = BeautifulSoup(html, "html.parser")
 
-        todayforecovid = soup.select('p.inner_value')[2].text #당일 해외유입 확진자수
-        print(f'{Time})  해외유입: {todayforecovid} 명')
+        First_Vaccination_Percent = soup.select('li.percent')[0].text #1차 접종 퍼센트
+        
+        Vaccination_Complete_Percent = soup.select('li.percent')[1].text #접종 완료 퍼센트
+        
+        Total_First_Vaccination_Complete = soup.select('li.person')[0].text #누적 1차 접종 수
+        Total_First_Vaccination_Complete = Total_First_Vaccination_Complete.replace('누적', '')
+        
+        Today_First_Vaccination_Complete = soup.select('li.person')[1].text #신규 1차 접종 수
+        Today_First_Vaccination_Complete = Today_First_Vaccination_Complete.replace(' ', '')
+        Today_First_Vaccination_Complete = Today_First_Vaccination_Complete.replace('신규', '')
+        
+        Total_Vaccination_Complete = soup.select('li.person')[2].text #누적 접종 완료 수
+        Total_Vaccination_Complete = Total_Vaccination_Complete.replace('누적', '')
+        
+        Today_Vaccination_Complete = soup.select('li.person')[3].text #신규 접종 완료 수
+        Today_Vaccination_Complete = Today_Vaccination_Complete.replace(' ', '')
+        Today_Vaccination_Complete = Today_Vaccination_Complete.replace('신규', '')
+        
+        print(f'{Time})  1차 접종 퍼센트: {First_Vaccination_Percent}')
+        print(f'{Time})  접종 완료 퍼센트: {Vaccination_Complete_Percent}')
+        print(f'{Time})  누적 1차 접종 수: {Total_First_Vaccination_Complete} 명')
+        print(f'{Time})  신규 1차 접종 수: {Today_First_Vaccination_Complete} 명')
+        print(f'{Time})  누적 접종 완료 수: {Total_Vaccination_Complete} 명')
+        print(f'{Time})  신규 접종 완료 수: {Today_Vaccination_Complete} 명')
 
-        return todayforecovid
+        return First_Vaccination_Percent, Vaccination_Complete_Percent, Total_First_Vaccination_Complete, Today_First_Vaccination_Complete, Total_Vaccination_Complete, Today_Vaccination_Complete
     except:
+        print(f'{Time})  Vaccination_Status: Error')
+        return "Error"
+Vaccination_Status()
+def Total_Death():
+    try:
+        Time = time()
+        html = urllib.request.urlopen(url)
+        soup = BeautifulSoup(html, "html.parser")
+
+        Total_Death = soup.select('div.box')[2].text #누적 사망자
+        Total_Death = Total_Death.replace('\n', '')
+        Total_Death = Total_Death.replace(' ', '')
+        Total_Death = Total_Death.replace('(누적)사망', '')
+        print(f'{Time})  누적 사망자: {Total_Death} 명')
+
+        return Total_Death
+    except:
+        print(f'{Time})  누적 사망자: Error')
         return "Error"
         
-def totalca():
+def Today_Death():
     try:
         Time = time()
         html = urllib.request.urlopen(url)
         soup = BeautifulSoup(html, "html.parser")
 
-        totalca = soup.select('dd.ca_value')[2].text #누적 격리해제
-        print(f'{Time})  누적 격리해제: {totalca} 명')
+        Today_Death = soup.select('td')[0].text #당일 사망자
+        print(f'{Time})  당일 사망자: {Today_Death} 명')
 
-        return totalca
+        return Today_Death
     except:
-        return "Error"
-        
-def todayca():
-    try:
-        Time = time()
-        html = urllib.request.urlopen(url)
-        soup = BeautifulSoup(html, "html.parser")
-
-        todayca = soup.select('span.txt_ntc')[0].text #당일 격리해제
-        print(f'{Time})  격리해제: {todayca} 명')
-
-        return todayca
-    except:
-        return "Error"
-        
-def totalcaing():
-    try:
-        Time = time()
-        html = urllib.request.urlopen(url)
-        soup = BeautifulSoup(html, "html.parser")
-
-        totalcaing = soup.select('dd.ca_value')[4].text #누적 격리중
-        print(f'{Time})  누적 격리중: {totalcaing}')
-
-        return totalcaing
-    except:
-        return "Error"
-        
-def todaycaing():
-    try:
-        Time = time()
-        html = urllib.request.urlopen(url)
-        soup = BeautifulSoup(html, "html.parser")
-
-        todaycaing = soup.select('span.txt_ntc')[1].text #당일 격리중
-        print(f'{Time})  격리중: {todaycaing} 명')
-
-        return todaycaing
-    except:
-        return "Error"
-        
-def totaldead():
-    try:
-        Time = time()
-        html = urllib.request.urlopen(url)
-        soup = BeautifulSoup(html, "html.parser")
-
-        totaldead = soup.select('dd.ca_value')[6].text #누적 사망자
-        print(f'{Time})  누적 사망자: {totaldead} 명')
-
-        return totaldead
-    except:
-        return "Error"
-        
-def todaydead():
-    try:
-        Time = time()
-        html = urllib.request.urlopen(url)
-        soup = BeautifulSoup(html, "html.parser")
-
-        todaydead = soup.select('span.txt_ntc')[2].text #당일 사망자
-        print(f'{Time})  사망자: {todaydead} 명')
-
-        return todaydead
-    except:
+        print(f'{Time})  당일 사망자: Error')
         return "Error"
