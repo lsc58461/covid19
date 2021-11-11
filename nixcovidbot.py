@@ -28,7 +28,7 @@ async def on_button_click(interaction: Interaction):
 			_datecr = _datecr.string
 			_Total_Infection = Total_Infection()
 			_Today_Infection = Today_Infection()
-			embed = discord.Embed(title='🦠 확진환자',description="",color=0x368AFF).add_field(name='누적 확진자',value=f'{_Total_Infection} 명',inline=False).add_field(name='신규 확진자',value=f'{_Today_Infection} 명',inline=False).set_footer(text=_datecr)
+			embed = discord.Embed(title='🦠 확진환자',description="",color=0x368AFF).add_field(name='누적 확진자',value=f'{_Total_Infection} 명',inline=False).add_field(name='당일 확진자',value=f'{_Today_Infection} 명',inline=False).set_footer(text=_datecr)
 			print(f'{time()})  요청자: {interaction.user.name}\n')
 			await interaction.respond(embed=embed)
 	except:
