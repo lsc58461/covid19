@@ -14,21 +14,19 @@ def time():
 
 def datecr():
     try:
-        Time = time()
         html = urllib.request.urlopen(url2)
         soup = BeautifulSoup(html, "html.parser")
 
         datecr = soup.find('span', {'class': 't_date'}) #기준날짜
-        print(f'{Time})  기준일: {datecr.string}')
+        print(f'{time()})  기준일: {datecr.string}')
 
-        return datecr
+        return datecr.string
     except:
-        print(f'{Time})  기준일: Error')
+        print(f'{time()})  기준일: Error')
         return "Datecr Error"
 
 def Total_Infection():
     try:
-        Time = time()
         html = urllib.request.urlopen(url)
         soup = BeautifulSoup(html, "html.parser")
 
@@ -37,30 +35,28 @@ def Total_Infection():
         Total_Infection = Total_Infection.replace(' ', '')
         Total_Infection = Total_Infection.replace('(누적)확진', '')
         Total_Infection = Total_Infection.replace('다운로드', '')
-        print(f'{Time})  누적 확진자: {Total_Infection} 명')
+        print(f'{time()})  누적 확진자: {Total_Infection} 명')
 
         return Total_Infection
     except:
-        print(f'{Time})  누적 확진자: Error')
+        print(f'{time()})  누적 확진자: Error')
         return "Error"
     
 def Today_Infection():
     try:
-        Time = time()
         html = urllib.request.urlopen(url)
         soup = BeautifulSoup(html, "html.parser")
 
         Today_Infection = soup.select('td')[3].text #당일 확진자수 소계
-        print(f'{Time})  당일 확진자: {Today_Infection} 명')
+        print(f'{time()})  당일 확진자: {Today_Infection} 명')
 
         return Today_Infection
     except:
-        print(f'{Time})  당일 확진자: Error')
+        print(f'{time()})  당일 확진자: Error')
         return "Error"
         
 def Vaccination_Status():
     try:
-        Time = time()
         html = urllib.request.urlopen(url)
         soup = BeautifulSoup(html, "html.parser")
 
@@ -82,21 +78,20 @@ def Vaccination_Status():
         Today_Vaccination_Complete = Today_Vaccination_Complete.replace(' ', '')
         Today_Vaccination_Complete = Today_Vaccination_Complete.replace('신규', '')
         
-        print(f'{Time})  1차 접종 퍼센트: {First_Vaccination_Percent}')
-        print(f'{Time})  접종 완료 퍼센트: {Vaccination_Complete_Percent}')
-        print(f'{Time})  누적 1차 접종 수: {Total_First_Vaccination_Complete} 명')
-        print(f'{Time})  신규 1차 접종 수: {Today_First_Vaccination_Complete} 명')
-        print(f'{Time})  누적 접종 완료 수: {Total_Vaccination_Complete} 명')
-        print(f'{Time})  신규 접종 완료 수: {Today_Vaccination_Complete} 명')
+        print(f'{time()})  1차 접종 퍼센트: {First_Vaccination_Percent}')
+        print(f'{time()})  접종 완료 퍼센트: {Vaccination_Complete_Percent}')
+        print(f'{time()})  누적 1차 접종 수: {Total_First_Vaccination_Complete} 명')
+        print(f'{time()})  신규 1차 접종 수: {Today_First_Vaccination_Complete} 명')
+        print(f'{time()})  누적 접종 완료 수: {Total_Vaccination_Complete} 명')
+        print(f'{time()})  신규 접종 완료 수: {Today_Vaccination_Complete} 명')
 
         return First_Vaccination_Percent, Vaccination_Complete_Percent, Total_First_Vaccination_Complete, Today_First_Vaccination_Complete, Total_Vaccination_Complete, Today_Vaccination_Complete
     except:
-        print(f'{Time})  Vaccination_Status: Error')
+        print(f'{time()})  Vaccination_Status: Error')
         return "Error"
-Vaccination_Status()
+    
 def Total_Death():
     try:
-        Time = time()
         html = urllib.request.urlopen(url)
         soup = BeautifulSoup(html, "html.parser")
 
@@ -104,23 +99,22 @@ def Total_Death():
         Total_Death = Total_Death.replace('\n', '')
         Total_Death = Total_Death.replace(' ', '')
         Total_Death = Total_Death.replace('(누적)사망', '')
-        print(f'{Time})  누적 사망자: {Total_Death} 명')
+        print(f'{time()})  누적 사망자: {Total_Death} 명')
 
         return Total_Death
     except:
-        print(f'{Time})  누적 사망자: Error')
+        print(f'{time()})  누적 사망자: Error')
         return "Error"
         
 def Today_Death():
     try:
-        Time = time()
         html = urllib.request.urlopen(url)
         soup = BeautifulSoup(html, "html.parser")
 
         Today_Death = soup.select('td')[0].text #당일 사망자
-        print(f'{Time})  당일 사망자: {Today_Death} 명')
+        print(f'{time()})  당일 사망자: {Today_Death} 명')
 
         return Today_Death
     except:
-        print(f'{Time})  당일 사망자: Error')
+        print(f'{time()})  당일 사망자: Error')
         return "Error"
