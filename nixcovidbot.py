@@ -14,8 +14,8 @@ async def on_ready():
 	global lines
 	now = datetime.datetime.now()
 	with open('fword_list.txt', encoding="utf-8-sig") as f:
-        data=f.readlines()
-    lines = [line.rstrip('\n') for line in data]
+        	data=f.readlines()
+    	lines = [line.rstrip('\n') for line in data]
 	print("ready")
 
 @client.event
