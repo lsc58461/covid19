@@ -65,24 +65,24 @@ async def on_message(message): ##### remove bad words
 	try:
 		if message.author == client.user:
 			return
-	else:
-		message_contant = message.content
-		for i in lines:
-			if i in message_contant:
-				MyEmbed = Embed(
-					title = "비속어 감지",
-					color = 0xFF4848
-				)MyEmbed.add_field(
-					name = "────────────────────────",
-					value = f"{message.author.mention}님이 비속어 [{i}]을(를) 사용하셨습니다.\n────────────────────────",
-					inline = True
-				)
-				if i == "":
-					return
-				else:
-					await message.channel.send('어머')
-					await message.channel.send(embed=MyEmbed)
-					await message.delete()
+		else:
+			message_contant = message.content
+			for i in lines:
+				if i in message_contant:
+					MyEmbed = Embed(
+						title = "비속어 감지",
+						color = 0xFF4848
+					)MyEmbed.add_field(
+						name = "────────────────────────",
+						value = f"{message.author.mention}님이 비속어 [{i}]을(를) 사용하셨습니다.\n────────────────────────",
+						inline = True
+					)
+					if i == "":
+						return
+					else:
+						await message.channel.send('어머')
+						await message.channel.send(embed=MyEmbed)
+						await message.delete()
 	except:
 		print("비속어 에러")
 		return
