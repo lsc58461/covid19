@@ -72,7 +72,7 @@ async def on_message(message): ##### remove bad words
 					MyEmbed = Embed(
 						title = "비속어 감지",
 						color = 0xFF4848
-					)MyEmbed.add_field(
+					).add_field(
 						name = "────────────────────────",
 						value = f"{message.author.mention}님이 비속어 [{i}]을(를) 사용하셨습니다.\n────────────────────────",
 						inline = True
