@@ -1,5 +1,6 @@
 import os
 import discord
+import datetime
 from Crawling_Covid import time, datecr, Total_Infection, Today_Infection, Vaccination_Status, Total_Death, Today_Death
 from discord_components import DiscordComponents, Button, ButtonStyle, Select, Interaction, SelectOption
 from discord.embeds import Embed
