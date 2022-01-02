@@ -1,4 +1,5 @@
 import os
+import re
 import discord
 from Now_Time import Time
 from Crawling_Covid import time, datecr, Total_Infection, Today_Infection, Vaccination_Status, Total_Death, Today_Death
@@ -79,21 +80,30 @@ async def on_message(message):
 						color = 0xFF4848
 					).add_field(
 						name = "────────────────────────",
-						value = f"{message.author.mention}님이 비속어 [{i}]을(를) 사용하셨습니다.\n────────────────────────",
+						value = f"{message.author.mention}님이 [{message_contant}]에서 비속어 [{i}]을(를) 사용하셨습니다.\n────────────────────────",
 						inline = True
 					)
 					if i == "":
 						return
 					else:
+						await message.channel.send('어머')
 						try:
 							await message.delete(delay=0.5)
 							print(f"{Time()})  비속어 제거 성공")
 						except:
 							print(f"{Time()})  비속어 제거 실패")
-						await message.channel.send('어머')
+						try:
+							re_message = re.sub(i,"(비속어)", message_contant)
+							for j in re_message:
+								re_message = re.sub(i,"(비속어)", re_message)
+								print(f"{Time()})  {j}")
+								await message.channel.send(f"{message.author.mention}\n```{re_message}```")
+							print(f"{Time()})  비속어 치환 성공")
+						except:
+							print(f"{Time()})  비속어 치환 실패")
 						channel = client.get_channel(927067418017292339)
 						await channel.send(embed=MyEmbed)
-						print(f"{Time()})  {message.author.mention}님이 비속어 [{i}]을(를) 사용하셨습니다.")
+						print(f"{Time()})  {message.author.mention}님이 [{message_contant}]에서 비속어 [{i}]을(를) 사용하셨습니다.")
 						return
 	except Exception as ex:
 		print(f"에러\n{Time()})    -{ex}")
