@@ -91,7 +91,8 @@ async def on_message(message):
 						except:
 							print(f"{Time()})  비속어 제거 실패")
 						await message.channel.send('어머')
-						await message.channel.send(embed=MyEmbed)
+						channel = client.get_channel(927067418017292339)
+						await channel.send(embed=MyEmbed)
 						print(f"{Time()})  {message.author.mention}님이 비속어 [{i}]을(를) 사용하셨습니다.")
 						return
 	except Exception as ex:
