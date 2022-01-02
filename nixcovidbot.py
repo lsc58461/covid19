@@ -96,8 +96,8 @@ async def on_message(message):
 							re_message = re.sub(i,"(비속어)", message_contant)
 							for j in re_message:
 								re_message = re.sub(i,"(비속어)", re_message)
-								print(f"{Time()})  {j}")
-								await message.channel.send(f"{message.author.mention}\n```{re_message}```")
+							print(f"{Time()})  {j}")
+							await message.channel.send(f"{message.author.mention}\n```{re_message}```")
 							print(f"{Time()})  비속어 치환 성공")
 						except:
 							print(f"{Time()})  비속어 치환 실패")
