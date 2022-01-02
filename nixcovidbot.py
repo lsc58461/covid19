@@ -18,9 +18,9 @@ async def on_ready():
 	lines = [line.rstrip('\n') for line in data]
 	print(lines)
 	print(f"{Time()})------------    CONNECTED    ------------")
-    print(f"{Time()})  봇 이름 : {client.user.name}")
-    print(f"{Time()})  봇 ID : {client.user.id}")
-    print(f"{Time()})------------------------------------------------")
+	print(f"{Time()})  봇 이름 : {client.user.name}")
+	print(f"{Time()})  봇 ID : {client.user.id}")
+	print(f"{Time()})------------------------------------------------")
 
 @client.event
 async def on_message(msg):
