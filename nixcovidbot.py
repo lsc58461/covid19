@@ -1,6 +1,6 @@
 import os
 import discord
-import datetime
+from Now_Time import Time
 from Crawling_Covid import time, datecr, Total_Infection, Today_Infection, Vaccination_Status, Total_Death, Today_Death
 from discord_components import DiscordComponents, Button, ButtonStyle, Select, Interaction, SelectOption
 from discord.embeds import Embed
@@ -13,11 +13,14 @@ Token = os.environ['Token']
 @client.event
 async def on_ready():
 	global lines
-	now = datetime.datetime.now()
 	with open('fword_list.txt', encoding="utf-8-sig") as f:
 		data=f.readlines()
 	lines = [line.rstrip('\n') for line in data]
-	print("ready")
+	print(lines)
+	print(f"{Time()})------------    CONNECTED    ------------")
+    print(f"{Time()})  봇 이름 : {client.user.name}")
+    print(f"{Time()})  봇 ID : {client.user.id}")
+    print(f"{Time()})------------------------------------------------")
 
 @client.event
 async def on_message(msg):
@@ -62,7 +65,7 @@ async def on_button_click(interaction: Interaction):
 		await interaction.respond(embed=embed)
 
 @client.event
-async def on_message(message): ##### remove bad words
+async def on_message(message):
 	try:
 		if message.author == client.user:
 			return
@@ -70,6 +73,7 @@ async def on_message(message): ##### remove bad words
 			message_contant = message.content
 			for i in lines:
 				if i in message_contant:
+					print(f"{Time()})  {message.author.name} : {i}")
 					MyEmbed = Embed(
 						title = "비속어 감지",
 						color = 0xFF4848
@@ -81,11 +85,17 @@ async def on_message(message): ##### remove bad words
 					if i == "":
 						return
 					else:
+						try:
+							await message.delete(delay=0.5)
+							print(f"{Time()})  비속어 제거 성공")
+						except:
+							print(f"{Time()})  비속어 제거 실패")
 						await message.channel.send('어머')
 						await message.channel.send(embed=MyEmbed)
-						await message.delete()
-	except:
-		print("비속어 에러")
+						print(f"{Time()})  {message.author.mention}님이 비속어 [{i}]을(를) 사용하셨습니다.")
+						return
+	except Exception as ex:
+		print(f"에러\n{Time()})    -{ex}")
 		return
 	
 client.run(Token)
