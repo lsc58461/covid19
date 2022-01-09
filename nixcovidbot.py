@@ -13,11 +13,6 @@ Token = os.environ['Token']
 
 @client.event
 async def on_ready():
-	global lines
-	with open('fword_list.txt', encoding="utf-8-sig") as f:
-		data=f.readlines()
-	lines = [line.rstrip('\n') for line in data]
-	print(lines)
 	print(f"{Time()})------------    CONNECTED    ------------")
 	print(f"{Time()})  봇 이름 : {client.user.name}")
 	print(f"{Time()})  봇 ID : {client.user.id}")
@@ -64,49 +59,5 @@ async def on_button_click(interaction: Interaction):
 	except:
 		embed = discord.Embed(title='BT_3 Error',description="잠시 후 다시 시도해주세요\n오류가 계속 될 시 문의 바랍니다.",color=0xFF0F13)
 		await interaction.respond(embed=embed)
-
-@client.event
-async def on_message(message):
-	try:
-		if message.author == client.user:
-			return
-		else:
-			message_contant = message.content
-			for i in lines:
-				if i in message_contant:
-					print(f"{Time()})  {message.author.name} : {i}")
-					MyEmbed = Embed(
-						title = "비속어 감지",
-						color = 0xFF4848
-					).add_field(
-						name = "────────────────────────",
-						value = f"{message.author.mention}님이 [{message_contant}]에서 비속어 [{i}]을(를) 사용하셨습니다.\n────────────────────────",
-						inline = True
-					)
-					if i == "":
-						return
-					else:
-						await message.channel.send('어머')
-						try:
-							await message.delete(delay=0.5)
-							print(f"{Time()})  비속어 제거 성공")
-						except:
-							print(f"{Time()})  비속어 제거 실패")
-						try:
-							re_message = re.sub(i,"(비속어)", message_contant)
-							for j in re_message:
-								re_message = re.sub(i,"(비속어)", re_message)
-							print(f"{Time()})  {j}")
-							await message.channel.send(f"{message.author.mention}\n```{re_message}```")
-							print(f"{Time()})  비속어 치환 성공")
-						except:
-							print(f"{Time()})  비속어 치환 실패")
-						channel = client.get_channel(927067418017292339)
-						await channel.send(embed=MyEmbed)
-						print(f"{Time()})  {message.author.mention}님이 [{message_contant}]에서 비속어 [{i}]을(를) 사용하셨습니다.")
-						return
-	except Exception as ex:
-		print(f"에러\n{Time()})    -{ex}")
-		return
 	
 client.run(Token)
